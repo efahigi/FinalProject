@@ -22,9 +22,8 @@
       //Declare when game is won
 // Either player who can get more than half will win. 
 // document.addEventListener('DOMContentLoaded', () => {
-const gridsContainer = document.querySelector(".grids")
-// let gameOverMsg = document.querySelector('#memoryID');
-const cards = [
+  const gridContainer = document.querySelector(".grid-container");
+  const cards = [
   {
   name: '1',
   img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Playing_card_heart_A.svg/1200px-Playing_card_heart_A.svg.png"
@@ -90,60 +89,109 @@ const cards = [
   img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Playing_card_heart_8.svg/614px-Playing_card_heart_8.svg.png"
 },
 ];
+// let cards = [];
+let firstCard, secondCard;
+let lockBoard = false;
+let score = 0;
 
-const gridCount = cards.length;
-//Game state
-let revealedCount = 0;
-let activeGril = null;
-const awaitingEndOfMove = false;
-let cardsChosen = [];
-let activecardsChosen = [];
-const cardsMatchedBy1 = [];
-const cardsMatchedBy2 = [];
-let player1 = true;
-let player2 = false;
 
-//built up Grids
-function createGrid (card) {
-  const element  = document.createElement("div")
- 
-  element.classList.add("grid")
-  element.setAttribute("card-info", card);
+document.querySelector(".score").textContent = score;
 
-  element.setAttribute("data-revealed", "false");
- 
-  // element.addEventListener("click", () => {
-  //  const revealed = element.getAttribute("data-revealed");
-  //  if (
-  //     awaitingEndOfMove
-  //     || revealed === "true"
-  //     || element == activeGril
-  //   ) {
-  //     return;
-  //   }
-  
-  
-  //      // Reveal the card
-  //   element.style.backgroundColor = card;
-  
-  //   if (!activeGril) {
-  //     activeGril = element;
-  
-  //     return;
-  //   }
-}
-
-  
-  for (let i = 0; i < gridCount ; i++) {
-    const randomIndex = Math.floor(Math.random() * cards.length);
-    const card = cards[randomIndex];
-
-    const grid = createGrid(card);
-
-    cards.splice(randomIndex, randomIndex[i]);
-    gridsContainer.appendChild(grid);
-   
-    console.log(card)
+function shuffleCards() {
+  let currentIndex = cards.length,
+    randomIndex,
+    temporaryValue;
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = cards[currentIndex];
+    cards[currentIndex] = cards[randomIndex];
+    cards[randomIndex] = temporaryValue;
   }
+}
+  function generateCards() {
+      for (let card of cards) {
+        const cardElement = document.createElement("div");
+        cardElement.classList.add("card");
+        cardElement.setAttribute("data-img", card.img);
+        cardElement.innerHTML = `
+          <div class="front">
+            <img class="front-image" src=${card.img} />
+          </div>
+          <div class="back"></div>
+        `;
+        gridContainer.appendChild(cardElement);
+        cardElement.addEventListener("click", flipCard);
+      }
+    }
+
+    function flipCard() {
+      if (lockBoard) return;
+      if (this === firstCard) return;
+    
+      this.classList.add("flipped");
+    
+      if (!firstCard) {
+        firstCard = this;
+        return;
+      }
+    
+      secondCard = this;
+      score++;
+      document.querySelector(".score").textContent = score;
+      lockBoard = true;
+    
+      checkForMatch();
+    }
+    function flipCard() {
+      if (lockBoard) return;
+      if (this === firstCard) return;
+    
+      this.classList.add("flipped");
+    
+      if (!firstCard) {
+        firstCard = this;
+        return;
+      }
+    
+      secondCard = this;
+      score++;
+      document.querySelector(".score").textContent = score;
+      lockBoard = true;
+    
+      checkForMatch();
+    }
   
-  
+    function checkForMatch() {
+      let isMatch = firstCard.dataset.img === secondCard.dataset.img;
+    
+      isMatch ? disableCards() : unflipCards();
+    }
+    
+    function disableCards() {
+      firstCard.removeEventListener("click", flipCard);
+      secondCard.removeEventListener("click", flipCard);
+    
+      resetBoard();
+    }
+    
+    function unflipCards() {
+      setTimeout(() => {
+        firstCard.classList.remove("flipped");
+        secondCard.classList.remove("flipped");
+        resetBoard();
+      }, 1000);
+    }
+    function resetBoard() {
+      firstCard = null;
+      secondCard = null;
+      lockBoard = false;
+    }
+    function restart() {
+      resetBoard();
+      shuffleCards();
+      score = 0;
+      document.querySelector(".score").textContent = score;
+      gridContainer.innerHTML = "";
+      generateCards();
+    }
