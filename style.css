@@ -1,17 +1,73 @@
 body{
-  background: black;
+  background: rgb(177, 177, 174);
   margin: 0;
 }
-.grids{
- margin: 48px auto;
- width: max-content;
- display: grid;
- grid-template-columns: repeat(4, 100px);
- gap: 16px;
+
+.container{
+  margin: 5%;
+  height: 274px;
+
+  display: block;
+
 }
-.grid{
- height: 100px;
- background: rgb(8, 58, 8);
- border: 5px solid gray;
- cursor: pointer;
+.gameBoardContainer{
+  background-color: black;
+  display: flex;
+  height: 280px;
+}
+.header{
+  height: 30px;
+  font-size: larger;
+  font-family: sans-serif;
+  color: white;
+  text-align: center;
+  background-color: rgb(29, 148, 108);
+}
+.playerOneContainer{
+  background-color: rgb(29, 148, 108);
+  height: 100%;
+  width: 20%;
+  color: white;
+  padding-left: 8px;
+
+}
+.grids{
+  margin: 24px auto;
+  width: 60%;
+  display: grid; 
+  grid-template-columns: repeat(4, 100px);
+  gap: 10px;
+ }
+ .grid{
+  height: auto;
+  background: rgb(8, 58, 8);
+  border: 5px solid gray;
+  cursor: pointer;
+  width: auto;
+  }
+.playerTwoContainer{
+  background-color: rgb(29, 148, 108);
+  height: 100%;
+  width: 20%;
+  padding-left: 10px;
+  color: white;
+
+}
+.startExitBt{
+  background-color: rgb(29, 148, 108);
+
+}
+.startbutton{
+  margin-left: 30%;
+  border: double gray;
+  background-color: green;
+  color: white;
+ 
+ }
+ .exitbutton{
+
+  border: double gray;
+   background-color: rgb(197, 10, 10);
+   color: white;
+ 
  }

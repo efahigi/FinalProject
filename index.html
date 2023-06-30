@@ -17,22 +17,25 @@
 
       <div class="header"> Memory Card Game</div>
 
-      <div class="boardcontainer">
+      <div class="gameBoardContainer">
         <div class="playerOneContainer">
-          <div id="player1" class="player active"> Player 1: <span id="result1">0 </span><div>
+          <div id="player1" class="player11">Player 1</div>
+          <div class="score"> Score: <span id="result1">0</span></div>
         </div>
 
-        <div class="grids"> </div>
+        <div class="grids"></div>
 
-        <!-- <div class="progress"></div> -->
+          <!-- <div class="progress"></div> -->
 
         <div class="playerTwoContainer">
-          <div id="player2" class="player active">Player 2: <span id="result1">0</span><div>
+          <div id="player2" class="player22">Player 2</div>
+          <div class="score"> Score: <span id="result2">0</span></div>
         </div>
+        
       </div>
 
-      <div class="reloadExitBt">
-        <button class="restartbutton" onClick="window.location.reload();"> Restart Game</button>
+      <div class="startExitBt">
+        <button class="startbutton" onClick="window.location.reload();"> Start Game</button>
         <button class="exitbutton" onclick="window.open('', '_self', ''); window.close();">Exit Game</button>
       </div>
     </div>

@@ -21,10 +21,9 @@
 //no more than 2 card are flipped at time
       //Declare when game is won
 // Either player who can get more than half will win. 
-
-document.addEventListener('DOMContentLoaded', () => {
-const giridsContainer = document.querySelector(".grids")
-let gameOverMsg = document.querySelector('#memoryID');
+// document.addEventListener('DOMContentLoaded', () => {
+const gridsContainer = document.querySelector(".grids")
+// let gameOverMsg = document.querySelector('#memoryID');
 const cards = [
   {
   name: '1',
@@ -59,7 +58,7 @@ const cards = [
   img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Playing_card_heart_8.svg/614px-Playing_card_heart_8.svg.png"
 },
 {
-name: '1',
+  name: '1',
   img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Playing_card_heart_A.svg/1200px-Playing_card_heart_A.svg.png"
 },
 {
@@ -89,6 +88,62 @@ name: '1',
 {
   name: '8',
   img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Playing_card_heart_8.svg/614px-Playing_card_heart_8.svg.png"
+},
+];
+
+const gridCount = cards.length;
+//Game state
+let revealedCount = 0;
+let activeGril = null;
+const awaitingEndOfMove = false;
+let cardsChosen = [];
+let activecardsChosen = [];
+const cardsMatchedBy1 = [];
+const cardsMatchedBy2 = [];
+let player1 = true;
+let player2 = false;
+
+//built up Grids
+function createGrid (card) {
+  const element  = document.createElement("div")
+ 
+  element.classList.add("grid")
+  element.setAttribute("card-info", card);
+
+  element.setAttribute("data-revealed", "false");
+ 
+  // element.addEventListener("click", () => {
+  //  const revealed = element.getAttribute("data-revealed");
+  //  if (
+  //     awaitingEndOfMove
+  //     || revealed === "true"
+  //     || element == activeGril
+  //   ) {
+  //     return;
+  //   }
+  
+  
+  //      // Reveal the card
+  //   element.style.backgroundColor = card;
+  
+  //   if (!activeGril) {
+  //     activeGril = element;
+  
+  //     return;
+  //   }
 }
-]
-})
+
+  
+  for (let i = 0; i < gridCount ; i++) {
+    const randomIndex = Math.floor(Math.random() * cards.length);
+    const card = cards[randomIndex];
+
+    const grid = createGrid(card);
+
+    cards.splice(randomIndex, randomIndex[i]);
+    gridsContainer.appendChild(grid);
+   
+    console.log(card)
+  }
+  
+  
