@@ -1,12 +1,8 @@
 
 //The objective of the game is to turn over pairs of matching cards to get 1 point
 //  This game is played  by two-players. 
-// The winner is the player that reaches  more than half points first on the board.
+// The winner is the player that reaches  more than half points first .
 //-----------------------------
-//Making psudocode and some HTML cosing  on 1st Day 
-// Making javascript of the game on 2nd and 3rd day.
-// Making some css and javascript of the game on 4th day.
-//------------------------------
 //1.INITIALIZATION
      //making random card Ready
   //2. shuffle card
@@ -23,6 +19,12 @@
 // Either player who can get more than half will win. 
 // document.addEventListener('DOMContentLoaded', () => {
   const gridContainer = document.querySelector(".grid-container");
+  const result1 = document.querySelector('#score1')
+  const result2 = document.querySelector('#score2')
+  const p1 = document.querySelector('#player1')
+  const p2 = document.querySelector('#player2')
+  const moves = document.getElementById("movesMounter");
+  
   const cards = [
   {
   name: '1',
@@ -89,14 +91,24 @@
   img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Playing_card_heart_8.svg/614px-Playing_card_heart_8.svg.png"
 },
 ];
-// let cards = [];
+// game state
 let firstCard, secondCard;
 let lockBoard = false;
 let score = 0;
+let player1 = true
+let player2 = false
+let move = 0;
+// score
+document.querySelector("#score1").textContent = score;
 
+document.querySelector("#score2").textContent = score;
 
-document.querySelector(".score").textContent = score;
-
+const movesCounter = () => {
+  moves += 1;
+  moves.innerHTML = `<span>Moves:</span>${movesCounter}`;
+   
+};
+//making random card Ready
 function shuffleCards() {
   let currentIndex = cards.length,
     randomIndex,
@@ -109,60 +121,46 @@ function shuffleCards() {
     cards[randomIndex] = temporaryValue;
   }
 }
-  function generateCards() {
-      for (let card of cards) {
-        const cardElement = document.createElement("div");
-        cardElement.classList.add("card");
-        cardElement.setAttribute("data-img", card.img);
-        cardElement.innerHTML = `
-          <div class="front">
-            <img class="front-image" src=${card.img} />
-          </div>
-          <div class="back"></div>
-        `;
-        gridContainer.appendChild(cardElement);
-        cardElement.addEventListener("click", flipCard);
-      }
-    }
 
-    function flipCard() {
-      if (lockBoard) return;
-      if (this === firstCard) return;
+function generateCards() {
+  for (let card of cards) {
+    const cardElement = document.createElement("div");
+    cardElement.classList.add("card");
+    cardElement.setAttribute("data-img", card.img);
+    cardElement.innerHTML = `
     
-      this.classList.add("flipped");
-    
-      if (!firstCard) {
-        firstCard = this;
-        return;
-      }
-    
-      secondCard = this;
-      score++;
-      document.querySelector(".score").textContent = score;
-      lockBoard = true;
-    
-      checkForMatch();
-    }
-    function flipCard() {
-      if (lockBoard) return;
-      if (this === firstCard) return;
-    
-      this.classList.add("flipped");
-    
-      if (!firstCard) {
-        firstCard = this;
-        return;
-      }
-    
-      secondCard = this;
-      score++;
-      document.querySelector(".score").textContent = score;
-      lockBoard = true;
-    
-      checkForMatch();
-    }
+      <div class="before">?</div>
+
+      <div class="after">
+      <img class="front-image" src=${card.img} />
+      </div>
+    `;
   
+    gridContainer.appendChild(cardElement);
+    cardElement.addEventListener("click", flipCard);
+  }
+}
+function flipCard() {
+  if (lockBoard) return;
+  if (this === firstCard) return;
+
+  this.classList.add("flipped");
+
+  if (!firstCard) {
+    firstCard = this;
+    return;
+  }
+
+  secondCard = this;
+  score++;
+  document.querySelector("#score").textContent = score;
+  
+  lockBoard = true;
+
+  checkForMatch();
+}
     function checkForMatch() {
+      let cards = document.querySelectorAll('img')
       let isMatch = firstCard.dataset.img === secondCard.dataset.img;
     
       isMatch ? disableCards() : unflipCards();
@@ -191,7 +189,8 @@ function shuffleCards() {
       resetBoard();
       shuffleCards();
       score = 0;
-      document.querySelector(".score").textContent = score;
+      document.querySelector("#score1").textContent = score;
+      document.querySelector("#score1").textContent = score;
       gridContainer.innerHTML = "";
       generateCards();
     }
