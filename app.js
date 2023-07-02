@@ -23,8 +23,10 @@
   const result2 = document.querySelector('#score2')
   const p1 = document.querySelector('#player1')
   const p2 = document.querySelector('#player2')
-  const moves = document.getElementById("movesMounter");
-  
+  //let gameOverMsg = document.querySelector('#memoryID');
+  const move1 = document.getElementById("movesMounter1");
+  const move2 = document.getElementById("movesMounter2");
+ 
   const cards = [
   {
   name: '1',
@@ -92,23 +94,18 @@
 },
 ];
 // game state
+let score1 = 0;
+let score2 = 0;
 let firstCard, secondCard;
 let lockBoard = false;
-let score = 0;
+
 let player1 = true
 let player2 = false
-let move = 0;
-// score
-document.querySelector("#score1").textContent = score;
+//let move = 0;
+const cardsMatchedBy1 = []
+const cardsMatchedBy2 = []
 
-document.querySelector("#score2").textContent = score;
 
-const movesCounter = () => {
-  moves += 1;
-  moves.innerHTML = `<span>Moves:</span>${movesCounter}`;
-   
-};
-//making random card Ready
 function shuffleCards() {
   let currentIndex = cards.length,
     randomIndex,
@@ -120,7 +117,43 @@ function shuffleCards() {
     cards[currentIndex] = cards[randomIndex];
     cards[randomIndex] = temporaryValue;
   }
+  return cards
 }
+
+    //Initial Time
+let seconds = 0,
+minutes = 0;
+//Initial moves and win count
+let movesCount = 0,
+winCount = 0;
+//For timer
+const timeGenerator = () => {
+seconds += 1;
+//minutes logic
+if (seconds >= 60) {
+  minutes += 1;
+  seconds = 0;
+}
+//format time before displaying
+let secondsValue = seconds < 10 ? `0${seconds}` : seconds;
+let minutesValue = minutes < 10 ? `0${minutes}` : minutes;
+timeValue.innerHTML = `<span>Time:</span>${minutesValue}:${secondsValue}`;
+};
+//For calculating moves
+const movesCounter = () => {
+openedCards.length === 2
+movesCount ++;
+counter.innerHTML = moves
+};
+
+  
+// score
+document.querySelector("#score1").textContent = score1;
+document.querySelector("#score2").textContent = score1;
+//move
+document.querySelector("#move1").textContent = move1;
+document.querySelector("#move2").textContent = move1;
+
 
 function generateCards() {
   for (let card of cards) {
@@ -140,6 +173,7 @@ function generateCards() {
     cardElement.addEventListener("click", flipCard);
   }
 }
+
 function flipCard() {
   if (lockBoard) return;
   if (this === firstCard) return;
@@ -147,50 +181,113 @@ function flipCard() {
   this.classList.add("flipped");
 
   if (!firstCard) {
+    //  firstCard = true; //first click
     firstCard = this;
     return;
   }
-
+  // firstCard = false; //second click
   secondCard = this;
   score++;
-  document.querySelector("#score").textContent = score;
-  
+  move++;
+  document.querySelector("#score1").textContent = score;
+  document.querySelector("#score2").textContent = score;
+  document.querySelector("#move1").textContent = move;
+  document.querySelector("#move2").textContent = move;
   lockBoard = true;
-
+  // movesCounter();
   checkForMatch();
 }
-    function checkForMatch() {
-      let cards = document.querySelectorAll('img')
-      let isMatch = firstCard.dataset.img === secondCard.dataset.img;
-    
-      isMatch ? disableCards() : unflipCards();
-    }
-    
-    function disableCards() {
-      firstCard.removeEventListener("click", flipCard);
-      secondCard.removeEventListener("click", flipCard);
-    
-      resetBoard();
-    }
-    
-    function unflipCards() {
-      setTimeout(() => {
-        firstCard.classList.remove("flipped");
-        secondCard.classList.remove("flipped");
-        resetBoard();
-      }, 1000);
-    }
-    function resetBoard() {
-      firstCard = null;
-      secondCard = null;
-      lockBoard = false;
-    }
-    function restart() {
-      resetBoard();
-      shuffleCards();
-      score = 0;
-      document.querySelector("#score1").textContent = score;
-      document.querySelector("#score1").textContent = score;
-      gridContainer.innerHTML = "";
-      generateCards();
-    }
+function checkForMatch() {
+   let cards = document.querySelectorAll('img')
+  let isMatch = firstCard.dataset.img === secondCard.dataset.img;
+  isMatch ? disableCards() : unflipCards(); 
+  currentPlayer();
+  if(player1){
+    player1=false
+    player2=true
+  }
+  else if(player2){
+    player2=false
+    player1=true
+  }
+}
+
+// current player
+function currentPlayer (){
+  if(player1){
+    p1.classList.add("active")
+    p2.classList.remove("active")
+  }
+  else{
+    p2.classList.add("active")
+    p1.classList.remove("active")
+  }
+}
+if(player1){
+  result1.textContent = cardsMatchedBy1.length
+  move1.textContent =scoreCounter1.length 
+}
+else if(player2){
+  result2.textContent = cardsMatchedBy1.length
+  move2.textContent = scoreCounter2.length 
+
+}
+function disableCards() {
+  firstCard.removeEventListener("click", flipCard);
+  secondCard.removeEventListener("click", flipCard);
+  resetBoard();
+ 
+}
+function unflipCards() {
+  setTimeout(() => {
+    firstCard.classList.remove("flipped");
+    secondCard.classList.remove("flipped");
+    resetBoard();
+  }, 1000);
+}
+function resetBoard() {
+  firstCard = null;
+  secondCard = null;
+  lockBoard = false;
+}
+
+
+// if (player1) {
+//   result1 +=2;
+//   scoreCounter1.textContent = result1.toString();
+// }
+// else {
+//  result2 +=2;
+//   scoreCounter2.textContent = result2.toString();
+// }
+// checkGameOver();
+// } else{
+// //if the cards are not a match then turn them over again
+// lockBoard = true;
+// setTimeout(() => {
+// firstCard.classList.remove('flip');
+// secondCard.classList.remove('flip');
+// lockBoard = false;
+// resetBoard();
+// }, 1000);
+// if (p1Turn){
+//   p1Turn = false;
+// }
+// else if (!p1Turn){
+//   p1Turn = true;
+// }
+// // p2Turn = true;
+// }
+function restart() {
+  resetBoard();
+  shuffleCards();
+  score = 0;
+  move = 0;
+  document.querySelector("#score1").textContent = score;
+  document.querySelector("#score2").textContent = score;
+  document.querySelector("#move1").textContent = move;
+  document.querySelector("#move2").textContent = move;
+  gridContainer.innerHTML = "";
+  generateCards();
+}
+   
