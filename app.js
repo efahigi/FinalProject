@@ -1,4 +1,6 @@
 
+
+
 //The objective of the game is to turn over pairs of matching cards to get 1 point
 //  This game is played  by two-players. 
 // The winner is the player that reaches  more than half points first .
@@ -21,8 +23,8 @@
   const gridContainer = document.querySelector(".grid-container");
   const result1 = document.querySelector('#score1')
   const result2 = document.querySelector('#score2')
-  const p1 = document.querySelector('#player1')
-  const p2 = document.querySelector('#player2')
+  const p1 = document.querySelector('#p1')
+  const p2 = document.querySelector('#p2')
   //let gameOverMsg = document.querySelector('#memoryID');
   const move1 = document.getElementById("movesMounter1");
   const move2 = document.getElementById("movesMounter2");
@@ -120,25 +122,25 @@ function shuffleCards() {
   return cards
 }
 
-    //Initial Time
-let seconds = 0,
-minutes = 0;
-//Initial moves and win count
-let movesCount = 0,
-winCount = 0;
-//For timer
-const timeGenerator = () => {
-seconds += 1;
-//minutes logic
-if (seconds >= 60) {
-  minutes += 1;
-  seconds = 0;
-}
-//format time before displaying
-let secondsValue = seconds < 10 ? `0${seconds}` : seconds;
-let minutesValue = minutes < 10 ? `0${minutes}` : minutes;
-timeValue.innerHTML = `<span>Time:</span>${minutesValue}:${secondsValue}`;
-};
+//     //Initial Time
+// let seconds = 0,
+// minutes = 0;
+// //Initial moves and win count
+// let movesCount = 0,
+// winCount = 0;
+// //For timer
+// const timeGenerator = () => {
+// seconds += 1;
+// //minutes logic
+// if (seconds >= 60) {
+//   minutes += 1;
+//   seconds = 0;
+// }
+// //format time before displaying
+// let secondsValue = seconds < 10 ? `0${seconds}` : seconds;
+// let minutesValue = minutes < 10 ? `0${minutes}` : minutes;
+// timeValue.innerHTML = `<span>Time:</span>${minutesValue}:${secondsValue}`;
+// };
 //For calculating moves
 const movesCounter = () => {
 openedCards.length === 2
@@ -149,7 +151,7 @@ counter.innerHTML = moves
   
 // score
 document.querySelector("#score1").textContent = score1;
-document.querySelector("#score2").textContent = score1;
+document.querySelector("#score2").textContent = score2;
 //move
 document.querySelector("#move1").textContent = move1;
 document.querySelector("#move2").textContent = move1;
@@ -162,7 +164,7 @@ function generateCards() {
     cardElement.setAttribute("data-img", card.img);
     cardElement.innerHTML = `
     
-      <div class="before">?</div>
+      <div class="before">  Efa </div>
 
       <div class="after">
       <img class="front-image" src=${card.img} />
@@ -187,29 +189,36 @@ function flipCard() {
   }
   // firstCard = false; //second click
   secondCard = this;
-  score++;
-  move++;
-  document.querySelector("#score1").textContent = score;
-  document.querySelector("#score2").textContent = score;
-  document.querySelector("#move1").textContent = move;
-  document.querySelector("#move2").textContent = move;
+  // score++;
+  // move++;
+  // document.querySelector("#score1").textContent = score;
+  // document.querySelector("#score2").textContent = score;
+  // document.querySelector("#move1").textContent = move;
+  // document.querySelector("#move2").textContent = move;
   lockBoard = true;
   // movesCounter();
   checkForMatch();
 }
 function checkForMatch() {
-   let cards = document.querySelectorAll('img')
+  let cards = document.querySelectorAll('img')
   let isMatch = firstCard.dataset.img === secondCard.dataset.img;
   isMatch ? disableCards() : unflipCards(); 
-  currentPlayer();
+  
   if(player1){
-    player1=false
-    player2=true
+    cardsMatchedBy1.push(isMatch)
   }
   else if(player2){
-    player2=false
-    player1=true
+    cardsMatchedBy2.push(isMatch)
   }
+    if(player1){
+      player1=false
+      player2=true
+    }
+    else if(player2){
+      player2=false
+      player1=true
+    }
+  currentPlayer();
 }
 
 // current player
@@ -223,6 +232,7 @@ function currentPlayer (){
     p1.classList.remove("active")
   }
 }
+
 if(player1){
   result1.textContent = cardsMatchedBy1.length
   move1.textContent =scoreCounter1.length 
@@ -230,8 +240,9 @@ if(player1){
 else if(player2){
   result2.textContent = cardsMatchedBy1.length
   move2.textContent = scoreCounter2.length 
+  }
 
-}
+
 function disableCards() {
   firstCard.removeEventListener("click", flipCard);
   secondCard.removeEventListener("click", flipCard);
@@ -281,12 +292,13 @@ function resetBoard() {
 function restart() {
   resetBoard();
   shuffleCards();
-  score = 0;
-  move = 0;
-  document.querySelector("#score1").textContent = score;
-  document.querySelector("#score2").textContent = score;
-  document.querySelector("#move1").textContent = move;
-  document.querySelector("#move2").textContent = move;
+  currentPlayer ();
+  // score = 0;
+  // move = 0;
+  // document.querySelector("#score1").textContent = score;
+  // document.querySelector("#score2").textContent = score;
+  // document.querySelector("#move1").textContent = move;
+  // document.querySelector("#move2").textContent = move;
   gridContainer.innerHTML = "";
   generateCards();
 }
