@@ -1,6 +1,7 @@
 
 
 
+
 //The objective of the game is to turn over pairs of matching cards to get 1 point
 //  This game is played  by two-players. 
 // The winner is the player that reaches  more than half points first .
@@ -26,9 +27,10 @@
   const p1 = document.querySelector('#p1')
   const p2 = document.querySelector('#p2')
   //let gameOverMsg = document.querySelector('#memoryID');
-  const move1 = document.getElementById("movesMounter1");
-  const move2 = document.getElementById("movesMounter2");
- 
+  const move1 = document.getElementById("#move1");
+  const move2 = document.getElementById("#move2");
+  let matchCard= document.getElementsByClassName('match');
+
   const cards = [
   {
   name: '1',
@@ -95,17 +97,22 @@
   img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Playing_card_heart_8.svg/614px-Playing_card_heart_8.svg.png"
 },
 ];
+//cards.forEach(card => card.addEventListener('click', flipCard));
+shuffleCards(); // randomizes the board before each game
 // game state
-let score1 = 0;
-let score2 = 0;
+let movesNumber = 0;
+let matchedCouplesNumber = 0;
+let matchNumber = 1;
+let score1= 0;
+let score2= 0;
 let firstCard, secondCard;
 let lockBoard = false;
 
 let player1 = true
 let player2 = false
 //let move = 0;
-const cardsMatchedBy1 = []
-const cardsMatchedBy2 = []
+const isMatch1= []
+const isMatch2= []
 
 
 function shuffleCards() {
@@ -144,17 +151,19 @@ function shuffleCards() {
 //For calculating moves
 const movesCounter = () => {
 openedCards.length === 2
-movesCount ++;
-counter.innerHTML = moves
+move1 ++;
+move2 ++;
+counter.innerHTML = move1
+counter.innerHTML = move2
 };
 
   
-// score
-document.querySelector("#score1").textContent = score1;
-document.querySelector("#score2").textContent = score2;
-//move
-document.querySelector("#move1").textContent = move1;
-document.querySelector("#move2").textContent = move1;
+// // score
+// document.querySelector("#score1").textContent = result1;
+// document.querySelector("#score2").textContent = result1;
+// //move
+// document.querySelector("#move1").textContent = move1;
+// document.querySelector("#move2").textContent = move1;
 
 
 function generateCards() {
@@ -183,11 +192,11 @@ function flipCard() {
   this.classList.add("flipped");
 
   if (!firstCard) {
-    //  firstCard = true; //first click
-    firstCard = this;
+    //firstCard = true; //first click
+    firstCard = this;// 'this' = the element that has fired the event
     return;
   }
-  // firstCard = false; //second click
+  //firstCard = false; //second click
   secondCard = this;
   // score++;
   // move++;
@@ -196,56 +205,56 @@ function flipCard() {
   // document.querySelector("#move1").textContent = move;
   // document.querySelector("#move2").textContent = move;
   lockBoard = true;
-  // movesCounter();
+  // if the second card has been chosen, check if they match
   checkForMatch();
 }
 function checkForMatch() {
-  let cards = document.querySelectorAll('img')
   let isMatch = firstCard.dataset.img === secondCard.dataset.img;
   isMatch ? disableCards() : unflipCards(); 
-  
   if(player1){
-    cardsMatchedBy1.push(isMatch)
+    isMatch1.push(isMatch)
+    player1=false
+    player2=true
+  
   }
-  else if(player2){
-    cardsMatchedBy2.push(isMatch)
+  else {
+    isMatch2.push(isMatch)
+    player2=false
+    player1=true
+   
   }
-    if(player1){
-      player1=false
-      player2=true
-    }
-    else if(player2){
-      player2=false
-      player1=true
-    }
   currentPlayer();
-}
 
+}
 // current player
 function currentPlayer (){
   if(player1){
     p1.classList.add("active")
     p2.classList.remove("active")
+   
   }
   else{
     p2.classList.add("active")
     p1.classList.remove("active")
   }
+  checkGameOver();
 }
-
+//  player result 
+function playerResult(){
 if(player1){
-  result1.textContent = cardsMatchedBy1.length
-  move1.textContent =scoreCounter1.length 
+  result1.textContent = isMatch1.length
+  move1.textContent = cardsMatchedBy1.length 
 }
-else if(player2){
-  result2.textContent = cardsMatchedBy1.length
-  move2.textContent = scoreCounter2.length 
+else {
+  result2.textContent = isMatch2.length
+  move2.textContent = cardsMatchedBy1.length 
   }
-
-
+  
+}
 function disableCards() {
   firstCard.removeEventListener("click", flipCard);
   secondCard.removeEventListener("click", flipCard);
+  
   resetBoard();
  
 }
@@ -260,6 +269,7 @@ function resetBoard() {
   firstCard = null;
   secondCard = null;
   lockBoard = false;
+ 
 }
 
 
@@ -303,3 +313,15 @@ function restart() {
   generateCards();
 }
    
+function checkGameOver(){ // game is over if either player gets 4 points frist
+  if (score1 === 4){
+     alert("CONGRATULATIONS! YOU WON!");
+     shuffleCards();
+     location.reload();
+  }
+  else if (score2 === 4){
+     alert("CONGRATULATIONS! YOU WON!");
+     shuffleCards();
+     location.reload();
+  }
+}
