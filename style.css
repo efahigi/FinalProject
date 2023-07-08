@@ -1,28 +1,46 @@
 body{
-  background: rgb(177, 177, 174);
-  margin: 0;
-
+  width: 100vw;
+  height: 100vh;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  /* flex-direction: column; */
+  background: rgba(115, 178, 207, 0.3);
+  /* background: url(https://cloud-mslo6aesh.vercel.app/069.jpg); */
+  background-size: cover; 
+  }
+  .header{
+    height: 70px;
+    font-size: larger;
+    font-family: sans-serif;
+    color: white;
+    text-align: center;
+    background-color: rgb(29, 148, 108);
+  }
+  .container{
+    height: 450px;
+    display: block;
+    background-color: black;
+    justify-content: center;
+    align-items: center;
+   
+  }
+.grid {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  /* display: flex; */
+  flex-wrap: wrap;
+  width: 560px;
+  height: 480px;
+  width: 60%;
+  gap: 2px;
+  /* flex-direction: column; */
 }
 
-.container{
-  margin: 5%;
-  height: 390px;
-  display: block;
-
-}
-.header{
-  height: 30px;
-  font-size: larger;
-  font-family: sans-serif;
-  color: white;
-  text-align: center;
-  background-color: rgb(29, 148, 108);
-}
 .gameBoardContainer{
   border: red;
   background-color: black;
   display: flex;
-  height: 320px;
+  height:   330px;
 }
 
 .playerOneContainer{
@@ -33,18 +51,11 @@ body{
   padding-left: 8px;
 
 }
-.gridContainer{
-  margin: 4px ;
-  width: 60%;
-  display: grid; 
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 1px;
- }
-  
+
 .playerTwoContainer{
   background-color: rgb(29, 148, 108);
   height: 100%;
-  width: 20%;
+  width: 30%;
   padding-left: 10px;
   color: white;
 
@@ -53,90 +64,58 @@ body{
   background-color: rgb(29, 148, 108);
 display: flex;
 }
-/* .startbutton{
-  margin-left: 30%;
-  border: double gray;
-  background-color: green;
-  color: white;
+
+.tile{
+  padding: 2.5px;
+  width:75px;
+  height: 75px;
   border-radius: 10px;
- 
- } */
- .exitbutton{
-  border-radius: 10px;
-  border: double gray;
-  background-color: rgb(197, 10, 10);
-  color: white;
- 
- }
- .card {
-  border: 5px solid gray;
   cursor: pointer;
-  height: 60px;
-  width: 100px;
-  /* background-image( src,'image/placeholder.png'); */
-  border-radius: 10px;
-  background-color: white;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: all 0.5s ease-in-out;
+  gap: 5px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
-.front-image {
-  width: 60px;
-  height: 60px;
-}
-
-.card.flipped {
-  transform: rotateY(180deg);
-}
-
-.before, .after {
-    backface-visibility: hidden;
-    position: absolute;
-    border-radius: 10px;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-}
-
-/* .card .before{
+.board{
+  width: 560px;
+  height: 100px;
   display: flex;
-  justify-content: center;
   align-items: center;
-} */
-
-
-.before {
-  background-color:green;
-  font-size: 2.8em;
-  font-weight: 600;
-  color: white;
-  text-align: center;
-}
-.after {
-  background-color: #ffffff;
-  transform: rotateY(180deg);
+  justify-content: space-around;
 }
 .active{
-  color:black;
-  padding: 10px 30px;
-  border-radius: 30px;
-  background: yellow;
+  color: rgb(255, 244, 244);
+  padding: 10px 10px;
+  border-radius: 10px;
+  background: rgb(81, 187, 230);
   box-shadow: 0 0 30px rgba(81, 187, 230, 0.8);
 }
 .reload{
-  margin-left: 30%;
-  border: double gray;
-  background-color: green;
-  color: white;
-  border-radius: 10px;
   text-align: center;
   padding-bottom: 10px;
   font-size: 20px;
   cursor: pointer;
-  width: 100px;
-  
+  background-color: rgb(29, 148, 108);
 }
-.reload:hover{
+/* .reload:hover{
   transform: scale(1.2);
-}
+} */
+ .startBtn{
+  margin-left: 10%;
+  border: double gray;
+  background-color: green;
+  color: white;
+  border-radius: 10px;
+ 
+ } 
+ .exitbtn{
+  border-radius: 10px;
+  border: double gray;
+  background-color: rgb(197, 10, 10);
+  color: white;
+ }
+
+
+
+
+
+
+
