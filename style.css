@@ -1,34 +1,43 @@
 body{
-  width: 100vw;
+  background: rgb(177, 177, 174);
+  margin: 49px;
+  overflow: hidden;
+  /* width: 100vw;
   height: 100vh;
   /* display: flex; */
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; */
+  /* align-items: center; */
   /* flex-direction: column; */
-  background: rgba(115, 178, 207, 0.3);
+  /* background: rgba(115, 178, 207, 0.3); */
   /* background: url(https://cloud-mslo6aesh.vercel.app/069.jpg); */
-  background-size: cover; 
+  /* background-size: cover;   */
   }
   .header{
-    height: 70px;
+    border: solid black ;
+    height: 40px;
     font-size: larger;
     font-family: sans-serif;
-    color: white;
+    color: black;
     text-align: center;
-    background-color: rgb(29, 148, 108);
+    background-color: rgb(70, 228, 175);
+    margin-left: 6px;
+    margin-top: 10px;
+    margin-right:6px;
   }
   .container{
-    height: 450px;
-    display: block;
+    overflow: hidden;
+    height: 436px;
+    /* display: block; */
     background-color: black;
     justify-content: center;
     align-items: center;
    
   }
 .grid {
+  overflow: hidden;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   /* display: flex; */
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   width: 560px;
   height: 480px;
   width: 60%;
@@ -40,7 +49,7 @@ body{
   border: red;
   background-color: black;
   display: flex;
-  height:   330px;
+  height:   340px;
 }
 
 .playerOneContainer{
@@ -49,6 +58,7 @@ body{
   width: 20%;
   color: white;
   padding-left: 8px;
+  margin-left: 10px;
 
 }
 
@@ -58,29 +68,36 @@ body{
   width: 30%;
   padding-left: 10px;
   color: white;
+  margin-right: 10px;
 
 }
-.startExitBt{
+/* .startExitBt{
   background-color: rgb(29, 148, 108);
-display: flex;
-}
+  display: flex;
+  margin-left: 10px;
+} */
 
 .tile{
+  margin: 9px;
+  border: 5px double gray;
   padding: 2.5px;
-  width:75px;
-  height: 75px;
+  width: 50px;
+  height: 50px;
   border-radius: 10px;
   cursor: pointer;
-  gap: 5px;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  position: relative;
+  /* gap: 29px; */
+  transform-style: preserve-3d;
+  transition: all 0.5s ease-in-out;
+  
 }
-.board{
+/* .board{
   width: 560px;
   height: 100px;
   display: flex;
   align-items: center;
   justify-content: space-around;
-}
+} */
 .active{
   color: rgb(255, 244, 244);
   padding: 10px 10px;
@@ -94,6 +111,8 @@ display: flex;
   font-size: 20px;
   cursor: pointer;
   background-color: rgb(29, 148, 108);
+  margin-left: 10px;
+  margin-right: 10px;
 }
 /* .reload:hover{
   transform: scale(1.2);

@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
       else if(player2){
         result2.textContent = cardsMatchedBy2.length
       }
-      
+      checkGameOver()
     }
     
     //flip card
@@ -202,4 +202,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }    
 
     createGrid()
+    function checkGameOver(){ // game is over if either player gets 4 points frist
+      if (cardsMatchedBy1.length === 4 || cardsMatchedBy2.length === 4 ){
+        let result;
+        if (cardsMatchedBy1.length > cardsMatchedBy2.length) {
+          result = 'CONGRATULATIONS! PLAYER 1 WON!';
+          window.alert(result);
+          document.location.reload();
+        }
+        else if  (cardsMatchedBy2.length > cardsMatchedBy1.length) {
+          result = 'CONGRATULATIONS! PLAYER 2 WON!';
+          window.alert(result);
+          document.location.reload(); 
+          }
+        else {
+          result = 'YOU ARE DRAW!';
+          window.alert(result);
+          document.location.reload(); 
+        } 
+      }
+      
+    }
 })
