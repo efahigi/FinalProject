@@ -33,11 +33,11 @@ body{
   padding-left: 8px;
 
 }
-.grid-container{
+.gridContainer{
   margin: 4px ;
   width: 60%;
   display: grid; 
-  grid-template-columns: repeat(4, 100px);
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 1px;
  }
   
@@ -51,16 +51,16 @@ body{
 }
 .startExitBt{
   background-color: rgb(29, 148, 108);
-
+display: flex;
 }
-.startbutton{
+/* .startbutton{
   margin-left: 30%;
   border: double gray;
   background-color: green;
   color: white;
   border-radius: 10px;
  
- }
+ } */
  .exitbutton{
   border-radius: 10px;
   border: double gray;
@@ -69,10 +69,11 @@ body{
  
  }
  .card {
-   border: 5px solid gray;
+  border: 5px solid gray;
   cursor: pointer;
   height: 60px;
-  width: 60px;
+  width: 100px;
+  /* background-image( src,'image/placeholder.png'); */
   border-radius: 10px;
   background-color: white;
   position: relative;
@@ -122,4 +123,20 @@ body{
   border-radius: 30px;
   background: yellow;
   box-shadow: 0 0 30px rgba(81, 187, 230, 0.8);
+}
+.reload{
+  margin-left: 30%;
+  border: double gray;
+  background-color: green;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  padding-bottom: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  width: 100px;
+  
+}
+.reload:hover{
+  transform: scale(1.2);
 }

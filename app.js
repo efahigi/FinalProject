@@ -21,16 +21,16 @@
       //Declare when game is won
 // Either player who can get more than half will win. 
 // document.addEventListener('DOMContentLoaded', () => {
-  const gridContainer = document.querySelector(".grid-container");
-  const result1 = document.querySelector('#score1')
-  const result2 = document.querySelector('#score2')
-  const p1 = document.querySelector('#p1')
-  const p2 = document.querySelector('#p2')
-  //let gameOverMsg = document.querySelector('#memoryID');
-  const move1 = document.getElementById("#move1");
-  const move2 = document.getElementById("#move2");
-  let matchCard= document.getElementsByClassName('match');
-
+  //const gridContainer = document.querySelector(".gridContainer");
+  // const result1 = document.querySelector('#score1')
+  // const result2 = document.querySelector('#score2')
+  // const p1 = document.querySelector('#p1')
+  // const p2 = document.querySelector('#p2')
+  // //let gameOverMsg = document.querySelector('#memoryID');
+  // const move1 = document.getElementById("#move1");
+  // const move2 = document.getElementById("#move2");
+  // let matchCard= document.getElementsByClassName('match');
+ 
   const cards = [
   {
   name: '1',
@@ -97,173 +97,118 @@
   img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Playing_card_heart_8.svg/614px-Playing_card_heart_8.svg.png"
 },
 ];
-//cards.forEach(card => card.addEventListener('click', flipCard));
-shuffleCards(); // randomizes the board before each game
+//cards.sort(() => 0.5 - Math.random())
+const gridContainer = document.getElementById("gridContainer");
+// const result1 = document.querySelector('#score1');
+// const result2 = document.querySelector('#score2');
+// const p1 = document.querySelector('#p1');
+// const p2 = document.querySelector('#p2');
+// const placeholder = 'https://cloud-5ystxzer7.vercel.app/7placeholder.png';
+// const blank = 'https://cloud-5ystxzer7.vercel.app/6blank.png';
 // game state
-let movesNumber = 0;
-let matchedCouplesNumber = 0;
-let matchNumber = 1;
-let score1= 0;
-let score2= 0;
-let firstCard, secondCard;
-let lockBoard = false;
-
-let player1 = true
-let player2 = false
-//let move = 0;
-const isMatch1= []
-const isMatch2= []
 
 
+let card = [];
+let matchedCards= [];
+let flippedCards= [];
+let currentPlayer = 1;
+let player1Pairs = 0;
+let player2Pairs = 0;
+let player1 = true;
+let player2 = false;
+
+
+
+//creating div for Gameboard
+
+  for (let i = 0; i < 16; i++){
+  const card = document. createElement('div');
+    card.className = 'card';
+    card.dataset.img = cards[Math. floor (i/2)];
+    // card.setAttribute("data-img", card.img);
+    card.addEventListener("click", flipCard);
+    gridContainer.appendChild(card);
+   cards.push(card);
+  }
+ // shafiling the card
+ shuffleCards()
 function shuffleCards() {
-  let currentIndex = cards.length,
-    randomIndex,
-    temporaryValue;
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    temporaryValue = cards[currentIndex];
-    cards[currentIndex] = cards[randomIndex];
-    cards[randomIndex] = temporaryValue;
+  for(let i = cards.length-1; i > 0; i--){
+     let j = Math. floor (Math.randon() * (i+1)); 
+    let temp = cards [i].dataset.img;
+    cards[1]. dataset.img = cards[j].dataset. img;
+    cards [j] .dataset. img- temp;
   }
-  return cards
+
+  // let currentIndex = cards.length,
+  //   randomIndex,
+  //   temporaryValue;
+  // while (currentIndex !== 0) {
+  //   randomIndex = Math.floor(Math.random() * currentIndex);
+  //   currentIndex -= 1;
+  //   temporaryValue = cards[currentIndex];
+  //   cards[currentIndex] = cards[randomIndex];
+  //   cards[randomIndex] = temporaryValue;
+  // }
+
 }
 
-//     //Initial Time
-// let seconds = 0,
-// minutes = 0;
-// //Initial moves and win count
-// let movesCount = 0,
-// winCount = 0;
-// //For timer
-// const timeGenerator = () => {
-// seconds += 1;
-// //minutes logic
-// if (seconds >= 60) {
-//   minutes += 1;
-//   seconds = 0;
-// }
-// //format time before displaying
-// let secondsValue = seconds < 10 ? `0${seconds}` : seconds;
-// let minutesValue = minutes < 10 ? `0${minutes}` : minutes;
-// timeValue.innerHTML = `<span>Time:</span>${minutesValue}:${secondsValue}`;
-// };
-//For calculating moves
-const movesCounter = () => {
-openedCards.length === 2
-move1 ++;
-move2 ++;
-counter.innerHTML = move1
-counter.innerHTML = move2
-};
-
-  
-// // score
-// document.querySelector("#score1").textContent = result1;
-// document.querySelector("#score2").textContent = result1;
-// //move
-// document.querySelector("#move1").textContent = move1;
-// document.querySelector("#move2").textContent = move1;
-
-
-function generateCards() {
-  for (let card of cards) {
-    const cardElement = document.createElement("div");
-    cardElement.classList.add("card");
-    cardElement.setAttribute("data-img", card.img);
-    cardElement.innerHTML = `
-    
-      <div class="before">  Efa </div>
-
-      <div class="after">
-      <img class="front-image" src=${card.img} />
-      </div>
-    `;
-  
-    gridContainer.appendChild(cardElement);
-    cardElement.addEventListener("click", flipCard);
+function flipCard(){
+  if(flippedCards.length < 2 && !matchedCards.includes(this)){ 
+    this.style.backgroundImage = 'url('+ this.dataset.img + ')';
+    flippedCards.push(this);
+    this.classList .add('player' + currentPlayer);
+    if (flippedCards.length === 2) {
+      setTimeout(checkMatch, 1000)
+    }
   }
-}
-
-function flipCard() {
-  if (lockBoard) return;
-  if (this === firstCard) return;
-
-  this.classList.add("flipped");
-
-  if (!firstCard) {
-    //firstCard = true; //first click
-    firstCard = this;// 'this' = the element that has fired the event
-    return;
-  }
-  //firstCard = false; //second click
-  secondCard = this;
-  // score++;
-  // move++;
-  // document.querySelector("#score1").textContent = score;
-  // document.querySelector("#score2").textContent = score;
-  // document.querySelector("#move1").textContent = move;
-  // document.querySelector("#move2").textContent = move;
-  lockBoard = true;
-  // if the second card has been chosen, check if they match
-  checkForMatch();
-}
-function checkForMatch() {
-  let isMatch = firstCard.dataset.img === secondCard.dataset.img;
-  isMatch ? disableCards() : unflipCards(); 
-  if(player1){
-    isMatch1.push(isMatch)
-    player1=false
-    player2=true
-  
-  }
-  else {
-    isMatch2.push(isMatch)
-    player2=false
-    player1=true
-   
-  }
-  currentPlayer();
-
-}
-// current player
-function currentPlayer (){
-  if(player1){
-    p1.classList.add("active")
-    p2.classList.remove("active")
-   
-  }
-  else{
-    p2.classList.add("active")
-    p1.classList.remove("active")
-  }
-  checkGameOver();
-}
-//  player result 
-function playerResult(){
-if(player1){
-  result1.textContent = isMatch1.length
-  move1.textContent = cardsMatchedBy1.length 
-}
-else {
-  result2.textContent = isMatch2.length
-  move2.textContent = cardsMatchedBy1.length 
-  }
-  
-}
-function disableCards() {
-  firstCard.removeEventListener("click", flipCard);
-  secondCard.removeEventListener("click", flipCard);
-  
-  resetBoard();
  
 }
-function unflipCards() {
-  setTimeout(() => {
-    firstCard.classList.remove("flipped");
-    secondCard.classList.remove("flipped");
-    resetBoard();
-  }, 1000);
+
+function checkMatch(){
+  //var cards = document.querySelectorAll('img')
+  var card1 = flippedCards[0];
+  var card2 = flippedCards[1];
+  
+  if (card1.dataset.img = card2.dataset.img) {
+  card1.style.boxshadow = getPlayerBoxShadowColor(currentPlayer);
+  card2.style.boxShadow = getPlayerBoxShadowColor(currentPlayer);
+  matchedCards.push(card1, card2)
+  updateScore();
+  checkGameEnd();
+  }
+  else {
+  card1.style.backgroundImage = '';
+  card2.style.backgroundImage = '';
+  card1.classlist.remove('player' + currentPlayer)
+  card2.classlist.remove('player' + currentPlayer)
+  if (currentPlayer ===1){
+    currentPlayer = 2;
+  }
+  else{
+    currentPlayer = 1;
+  }
+  }
+  flippedCards = [];
+}
+function updateScore(){
+  if (currentPlayer ===1){
+    player1Pairs++;
+    document.querySelector('#result1').textContent = 'Score:' +player1Pairs;
+  }
+  else{
+    player2Pairs++;
+    document.querySelector('#result2').textContent = 'Score:' +player2Pairs;
+    
+  }
+  checkGameOver()
+}
+function getPlayerBoxShadowColor(player){
+  if (player ===1){
+  return'5px spx 20px #f20090'
+  } else{
+    return'5px spx 20px #56cfe3'
+  }
 }
 function resetBoard() {
   firstCard = null;
@@ -271,57 +216,147 @@ function resetBoard() {
   lockBoard = false;
  
 }
-
-
-// if (player1) {
-//   result1 +=2;
-//   scoreCounter1.textContent = result1.toString();
+// restart();
+// function restart() {
+//   resetBoard()
+//   shuffleCards();
+//   createBoard()
 // }
-// else {
-//  result2 +=2;
-//   scoreCounter2.textContent = result2.toString();
-// }
-// checkGameOver();
-// } else{
-// //if the cards are not a match then turn them over again
-// lockBoard = true;
-// setTimeout(() => {
-// firstCard.classList.remove('flip');
-// secondCard.classList.remove('flip');
-// lockBoard = false;
-// resetBoard();
-// }, 1000);
-// if (p1Turn){
-//   p1Turn = false;
-// }
-// else if (!p1Turn){
-//   p1Turn = true;
-// }
-// // p2Turn = true;
-// }
-function restart() {
-  resetBoard();
-  shuffleCards();
-  currentPlayer ();
-  // score = 0;
-  // move = 0;
-  // document.querySelector("#score1").textContent = score;
-  // document.querySelector("#score2").textContent = score;
-  // document.querySelector("#move1").textContent = move;
-  // document.querySelector("#move2").textContent = move;
-  gridContainer.innerHTML = "";
-  generateCards();
-}
-   
 function checkGameOver(){ // game is over if either player gets 4 points frist
-  if (score1 === 4){
-     alert("CONGRATULATIONS! YOU WON!");
-     shuffleCards();
-     location.reload();
+  if (matchedCards.length === 4){
+    let result;
+    if (player1Pairs > player2Pairs) {
+      result = 'CONGRATULATIONS! PLAYER 1 WON!';
+      window.alert(result);
+      document.location.reload();
+    }
+    else if  (player2Pairs > player1Pairs) {
+      result = 'CONGRATULATIONS! PLAYER 2 WON!';
+      window.alert(result);
+      document.location.reload(); 
+      }
+    else {
+      result = 'YOU ARE DRAW!';
+      window.alert(result);
+      document.location.reload(); 
+    } 
   }
-  else if (score2 === 4){
-     alert("CONGRATULATIONS! YOU WON!");
-     shuffleCards();
-     location.reload();
-  }
+  restart()
 }
+//     let cardsChosen = []
+//     let cardsChosenId = []
+//     const cardsMatchedBy1 = []
+//     const cardsMatchedBy2 = []
+//     let player1 = true
+//     let player2 = false
+
+//     //create your board
+//     function createGrid() {
+//       for (let i = 0; i < cards.length; i++) {
+//        const card = document.createElement('img')
+//         card.setAttribute('src', placeholder.png)
+//         card.setAttribute('data-id', i)
+//         card.setAttribute('class', 'tile')
+//         card.addEventListener('click', flipCard)
+//         gridContainer.appendChild(card)
+//       }
+//     }
+
+//     //check for matches
+//     function checkMatch() {
+//       let cards = document.querySelectorAll('img')
+//       const optionOneId = cardsChosenId[0]
+//       const optionTwoId = cardsChosenId[1]
+      
+//       if(optionOneId == optionTwoId) {
+//         cards[optionOneId].setAttribute('src', placeholder.png)
+//         cards[optionTwoId].setAttribute('src', placeholder.png)
+//         alert('You have clicked the same image!')
+//       }
+//       else if (cardsChosen[0] === cardsChosen[1]) {
+        
+//         cards[optionOneId].setAttribute('src', blank.png)
+//         cards[optionTwoId].setAttribute('src', blank.png)
+//         cards[optionOneId].removeEventListener('click', flipCard)
+//         cards[optionTwoId].removeEventListener('click', flipCard)
+//         if(player1){
+//           cardsMatchedBy1.push(cardsChosen)
+//         }
+//         else if(player2){
+//           cardsMatchedBy2.push(cardsChosen)
+//         }
+        
+//       } else {
+//         setTimeout(() => {
+//           cards[optionOneId].setAttribute('src', placeholder.png)
+//           cards[optionTwoId].setAttribute('src', placeholder.png)
+//           if(player1){
+//             player1=false
+//             player2=true
+//           }
+//           else if(player2){
+//             player2=false
+//             player1=true
+//           }
+//         }, 500)
+//         currentPlayer()
+//       }
+//       cardsChosen = []
+//       cardsChosenId = []
+//       // current player
+//       function currentPlayer(){
+//         if(player1){
+//           p2.classList.add("active")
+//           p1.classList.remove("active")
+//         }
+//         else{
+//           p1.classList.add("active")
+//           p2.classList.remove("active")
+//         }
+//       }
+      
+      
+
+//       if(player1){
+//         result1.textContent = cardsMatchedBy1.length 
+//       }
+//       else if(player2){
+//         result2.textContent = cardsMatchedBy2.length
+//       }
+//       checkGameOver()
+//     }
+    
+//     //flip card
+//     function flipCard() {
+//       var cardId = this.getAttribute('data-id')
+//       cardsChosen.push(cardArray[cardId].name)
+//       cardsChosenId.push(cardId)
+//       this.setAttribute('src', cardArray[cardId].img)
+//       if (cardsChosen.length ===2) {
+//         setTimeout(checkMatch, 500)
+//       }
+//     }    
+
+//     createGrid()
+   
+
+//     function checkGameOver(){ // game is over if either player gets 4 points frist
+//       if (matchedCards.length === 4){
+//         let result;
+//         if (player1Pairs > player2Pairs) {
+//           result = 'CONGRATULATIONS! PLAYER 1 WON!';
+//           window.alert(result);
+//           document.location.reload();
+//         }
+//         else if  (player2Pairs > player1Pairs) {
+//           result = 'CONGRATULATIONS! PLAYER 2 WON!';
+//           window.alert(result);
+//           document.location.reload(); 
+//           }
+//         else {
+//           result = 'YOU ARE DRAW!';
+//           window.alert(result);
+//           document.location.reload(); 
+//         } 
+//       }
+//     }
