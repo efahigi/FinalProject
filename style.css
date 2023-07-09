@@ -9,47 +9,51 @@ body{
   /* align-items: center; */
   /* flex-direction: column; */
   /* background: rgba(115, 178, 207, 0.3); */
-  /* background: url(https://cloud-mslo6aesh.vercel.app/069.jpg); */
+  /* background: url(https://img.freepik.com/free-photo/space-background-realistic-starry-night-cosmos-shining-stars-milky-way-stardust-color-galaxy_1258-154643.jpg?w=826&t=st=1688873610~exp=1688874210~hmac=bfacf4548dfc2b900630af1dd0ceb3924f592538cc63cac70262dda1fe25e297); */
   /* background-size: cover;   */
   }
   .header{
-    border: solid black ;
+    /* border: solid black ; */
     height: 40px;
     font-size: larger;
     font-family: sans-serif;
     color: black;
     text-align: center;
-    background-color: rgb(70, 228, 175);
-    margin-left: 6px;
+    background-color:rgb(29, 148, 108);
+    margin-left: 10px;
     margin-top: 10px;
-    margin-right:6px;
+    margin-right:10px;
   }
   .container{
-    overflow: hidden;
-    height: 436px;
-    /* display: block; */
+    /* overflow: hidden; */
+
+    height: 420px;
     background-color: black;
     justify-content: center;
     align-items: center;
-   
+    position: absolute;
+    border-radius: 20px;
   }
-.grid {
-  overflow: hidden;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  /* display: flex; */
-  /* flex-wrap: wrap; */
-  width: 560px;
-  height: 480px;
+.gridContainer {
+  grid-template-columns: repeat(4,70px);
+  grid-template-rows: repeat(4,70px);
+  flex-wrap: wrap; 
+  height: 490px;
   width: 60%;
-  gap: 2px;
-  /* flex-direction: column; */
+  gap: 0.6em;
+  display: grid;
+  flex-direction: column;
+  
 }
 
 .gameBoardContainer{
-  border: red;
+  background: url(https://img.freepik.com/free-photo/space-background-realistic-starry-night-cosmos-shining-stars-milky-way-stardust-color-galaxy_1258-154643.jpg?w=826&t=st=1688873610~exp=1688874210~hmac=bfacf4548dfc2b900630af1dd0ceb3924f592538cc63cac70262dda1fe25e297);
   background-color: black;
   display: flex;
-  height:   340px;
+  height: 320px;
+ 
+
+
 }
 
 .playerOneContainer{
@@ -65,7 +69,7 @@ body{
 .playerTwoContainer{
   background-color: rgb(29, 148, 108);
   height: 100%;
-  width: 30%;
+  width: 20%;
   padding-left: 10px;
   color: white;
   margin-right: 10px;
@@ -77,16 +81,15 @@ body{
   margin-left: 10px;
 } */
 
-.tile{
-  margin: 9px;
-  border: 5px double gray;
-  padding: 2.5px;
+.card{
+  background-color: rgb(4, 124, 4);
+  /* position: fixed; */
+  border: 5px double rgb(145, 133, 133);
   width: 50px;
-  height: 50px;
+  height: 60px;
   border-radius: 10px;
   cursor: pointer;
   position: relative;
-  /* gap: 29px; */
   transform-style: preserve-3d;
   transition: all 0.5s ease-in-out;
   
@@ -99,10 +102,10 @@ body{
   justify-content: space-around;
 } */
 .active{
-  color: rgb(255, 244, 244);
+  color: black;
   padding: 10px 10px;
-  border-radius: 10px;
-  background: rgb(81, 187, 230);
+  border-radius: 30px;
+  background: yellow;
   box-shadow: 0 0 30px rgba(81, 187, 230, 0.8);
 }
 .reload{

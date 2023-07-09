@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
   cardArray.sort(() => 0.5 - Math.random())
 
-    const grid = document.querySelector('.grid')
+    const gridContainer= document.querySelector('.gridContainer')
     const result1 = document.querySelector('#result1')
     const result2 = document.querySelector('#result2')
     // score
@@ -122,9 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
         var card = document.createElement('img')
         card.setAttribute('src', 'imgs/placeholder.png')
         card.setAttribute('data-id', i)
-        card.setAttribute('class', 'tile')
+        card.setAttribute('class', 'card')
         card.addEventListener('click', flipCard)
-        grid.appendChild(card)
+        gridContainer.appendChild(card)
       }
     }
 
@@ -203,23 +203,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     createGrid()
     function checkGameOver(){ // game is over if either player gets 4 points frist
-      if (cardsMatchedBy1.length === 4 || cardsMatchedBy2.length === 4 ){
+      if (cardsMatchedBy1.length > 4|| cardsMatchedBy2.length > 4){
         let result;
         if (cardsMatchedBy1.length > cardsMatchedBy2.length) {
           result = 'CONGRATULATIONS! PLAYER 1 WON!';
           window.alert(result);
           document.location.reload();
         }
-        else if  (cardsMatchedBy2.length > cardsMatchedBy1.length) {
+        else {
           result = 'CONGRATULATIONS! PLAYER 2 WON!';
           window.alert(result);
           document.location.reload(); 
           }
-        else {
-          result = 'YOU ARE DRAW!';
-          window.alert(result);
-          document.location.reload(); 
-        } 
+        // else {
+        //   result = 'YOU ARE DRAW!';
+        //   window.alert(result);
+        //   document.location.reload(); 
+        // } 
       }
       
     }
