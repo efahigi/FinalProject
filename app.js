@@ -1,7 +1,3 @@
-
-
-
-
 //The objective of the game is to turn over pairs of matching cards to get 1 point
 //  This game is played  by two-players. 
 // The winner is the player that reaches  more than half points first .
@@ -20,21 +16,11 @@
 //no more than 2 card are flipped at time
       //Declare when game is won
 // Either player who can get more than half will win. 
-// document.addEventListener('DOMContentLoaded', () => {
-  //const gridContainer = document.querySelector(".gridContainer");
-  // const result1 = document.querySelector('#score1')
-  // const result2 = document.querySelector('#score2')
-  // const p1 = document.querySelector('#p1')
-  // const p2 = document.querySelector('#p2')
-  // //let gameOverMsg = document.querySelector('#memoryID');
-  // const move1 = document.getElementById("#move1");
-  // const move2 = document.getElementById("#move2");
-  // let matchCard= document.getElementsByClassName('match');
 
-  
+  //Create a DOM event-listener for the event DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
 
-  const cardArray = [
+  const cards= [
     {
       name: '1',
       img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Playing_card_heart_A.svg/1200px-Playing_card_heart_A.svg.png"
@@ -100,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
       img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Playing_card_heart_8.svg/614px-Playing_card_heart_8.svg.png"
     },
     ];
-  cardArray.sort(() => 0.5 - Math.random())
+  // cards.sort(() => 0.5 - Math.random())
 
     const gridContainer= document.querySelector('.gridContainer')
     const result1 = document.querySelector('#result1')
@@ -109,53 +95,68 @@ document.addEventListener('DOMContentLoaded', () => {
     const p1 = document.querySelector('#p1')
     const p2 = document.querySelector('#p2')
     // console.log([p1, p2])
-    var cardsChosen = []
-    var cardsChosenId = []
-    const cardsMatchedBy1 = []
-    const cardsMatchedBy2 = []
-    var player1 = true
-    var player2 = false
+    let flippedCard = []
+    let flippedCardId = []
+    const cardsMatchedByPlayer1 = []
+    const cardsMatchedByPlayer2 = []
+    let player1 = true
+    let player2 = false
 
-    //create your board
-    function createGrid() {
-      for (let i = 0; i < cardArray.length; i++) {
-        var card = document.createElement('img')
-        card.setAttribute('src', 'imgs/placeholder.png')
+    shuffleCards()
+    function shuffleCards() { //to make reshiffle cards randamily
+      let currentIndex = cards.length,
+        randomIndex,
+        temporaryValue;
+      while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = cards[currentIndex];
+        cards[currentIndex] = cards[randomIndex];
+        cards[randomIndex] = temporaryValue;
+      }
+      return cards
+    }
+
+    //create your Players board
+    function buildPlayerBaord() {
+      for (let i = 0; i < cards.length; i++) {
+        const card = document.createElement('img') //creat the HTML element
+        card.setAttribute('src', 'imgs/placeholder.png') //placeholder image is as reversed card
         card.setAttribute('data-id', i)
         card.setAttribute('class', 'card')
         card.addEventListener('click', flipCard)
-        gridContainer.appendChild(card)
+        gridContainer.appendChild( card) //add the card into the board
       }
     }
 
     //check for matches
     function checkMatch() {
-      var cards = document.querySelectorAll('img')
-      const optionOneId = cardsChosenId[0]
-      const optionTwoId = cardsChosenId[1]
+      let cards = document.querySelectorAll('img')
+      const flippedCard1 = flippedCardId[0]
+      const flippedCard2 = flippedCardId[1]
       
-      if(optionOneId == optionTwoId) {
-        cards[optionOneId].setAttribute('src', 'imgs/placeholder.png')
-        cards[optionTwoId].setAttribute('src', 'imgs/placeholder.png')
+      if(flippedCard1 == flippedCard2) {
+        cards[flippedCard1].setAttribute('src', 'imgs/placeholder.png')
+        cards[flippedCard2].setAttribute('src', 'imgs/placeholder.png')
         alert('You have clicked the same image!')
       }
-      else if (cardsChosen[0] === cardsChosen[1]) {
+      else if (flippedCard[0] === flippedCard[1]) {
         
-        cards[optionOneId].setAttribute('src', 'imgs/blank.png')
-        cards[optionTwoId].setAttribute('src', 'imgs/blank.png')
-        cards[optionOneId].removeEventListener('click', flipCard)
-        cards[optionTwoId].removeEventListener('click', flipCard)
+        cards[flippedCard1].setAttribute('src', 'imgs/blank.png')
+        cards[flippedCard2].setAttribute('src', 'imgs/blank.png')
+        cards[flippedCard1].removeEventListener('click', flipCard)
+        cards[flippedCard2].removeEventListener('click', flipCard)
        
         if(player1){
-          cardsMatchedBy1.push(cardsChosen)
+          cardsMatchedByPlayer1.push(flippedCard)
         }
         else if(player2){
-          cardsMatchedBy2.push(cardsChosen)
+          cardsMatchedByPlayer2.push(flippedCard)
         }
       } else {
         setTimeout(() => {
-          cards[optionOneId].setAttribute('src', 'imgs/placeholder.png')
-          cards[optionTwoId].setAttribute('src', 'imgs/placeholder.png')
+          cards[flippedCard1].setAttribute('src', 'imgs/placeholder.png')
+          cards[flippedCard2].setAttribute('src', 'imgs/placeholder.png')
           if(player1){
             player1=false
             player2=true
@@ -167,8 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500)
         currentPlayer()
       }
-      cardsChosen = []
-      cardsChosenId = []
+      flippedCard = []
+      flippedCardId = []
       // current player
       
       function currentPlayer(){
@@ -182,30 +183,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
       if(player1){
-        result1.textContent = cardsMatchedBy1.length 
+        result1.textContent = cardsMatchedByPlayer1.length 
       }
       else if(player2){
-        result2.textContent = cardsMatchedBy2.length
+        result2.textContent = cardsMatchedByPlayer2.length
       }
       checkGameOver()
-    }
-    
+    }   
     //flip card
-    function flipCard() {
-      var cardId = this.getAttribute('data-id')
-      cardsChosen.push(cardArray[cardId].name)
-      cardsChosenId.push(cardId)
-      this.setAttribute('src', cardArray[cardId].img)
-      if (cardsChosen.length ===2) {
-        setTimeout(checkMatch, 500)
-      }
-    }    
-
-    createGrid()
+function flipCard() {
+  let cardId = this.getAttribute('data-id')
+  flippedCard.push(cards[cardId].name)
+  flippedCardId.push(cardId)
+  this.setAttribute('src', cards[cardId].img)
+  if (flippedCard.length ===2) {
+    setTimeout(checkMatch, 1000)
+  }
+}   
+buildPlayerBaord()
     function checkGameOver(){ // game is over if either player gets 4 points frist
-      if (cardsMatchedBy1.length > 4|| cardsMatchedBy2.length > 4){
+      if (cardsMatchedByPlayer1.length > 4 || cardsMatchedByPlayer2 > 4){
         let result;
-        if (cardsMatchedBy1.length > cardsMatchedBy2.length) {
+        if (cardsMatchedByPlayer1.length > cardsMatchedByPlayer2.length) {
           result = 'CONGRATULATIONS! PLAYER 1 WON!';
           window.alert(result);
           document.location.reload();
@@ -215,11 +214,11 @@ document.addEventListener('DOMContentLoaded', () => {
           window.alert(result);
           document.location.reload(); 
           }
+       
         // else {
-        //   result = 'YOU ARE DRAW!';
-        //   window.alert(result);
-        //   document.location.reload(); 
-        // } 
+          //  result = 'YOU ARE DRAW!';
+          // window.alert(result);
+          // document.location.reload(); 
       }
       
     }

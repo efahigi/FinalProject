@@ -1,6 +1,6 @@
 body{
   background: rgb(177, 177, 174);
-  margin: 49px;
+  margin: 19px;
   overflow: hidden;
   /* width: 100vw;
   height: 100vh;
@@ -13,80 +13,77 @@ body{
   /* background-size: cover;   */
   }
   .header{
-    /* border: solid black ; */
+     background: url(https://img.freepik.com/free-photo/space-background-realistic-starry-night-cosmos-shining-stars-milky-way-stardust-color-galaxy_1258-154643.jpg?w=826&t=st=1688873610~exp=1688874210~hmac=bfacf4548dfc2b900630af1dd0ceb3924f592538cc63cac70262dda1fe25e297);
     height: 40px;
     font-size: larger;
     font-family: sans-serif;
-    color: black;
+    color: white;
     text-align: center;
-    background-color:rgb(29, 148, 108);
+    /* background-color:rgb(29, 148, 108); */
     margin-left: 10px;
     margin-top: 10px;
     margin-right:10px;
   }
   .container{
-    /* overflow: hidden; */
-
-    height: 420px;
-    background-color: black;
+    height: 490px;
+    background: url(https://img.freepik.com/free-photo/space-background-realistic-starry-night-cosmos-shining-stars-milky-way-stardust-color-galaxy_1258-154643.jpg?w=826&t=st=1688873610~exp=1688874210~hmac=bfacf4548dfc2b900630af1dd0ceb3924f592538cc63cac70262dda1fe25e297);
     justify-content: center;
     align-items: center;
     position: absolute;
     border-radius: 20px;
+    width: 530px;
   }
 .gridContainer {
-  grid-template-columns: repeat(4,70px);
-  grid-template-rows: repeat(4,70px);
-  flex-wrap: wrap; 
-  height: 490px;
-  width: 60%;
-  gap: 0.6em;
+  grid-template-columns: repeat(4,60px);
+  grid-template-rows: repeat(4,60px);
+  /* flex-wrap: wrap;  */
+  /* width: 65%; */
+  gap: 0.4em;
   display: grid;
   flex-direction: column;
+  padding: 2px;
+  border-radius: 20px;
   
 }
 
 .gameBoardContainer{
-  background: url(https://img.freepik.com/free-photo/space-background-realistic-starry-night-cosmos-shining-stars-milky-way-stardust-color-galaxy_1258-154643.jpg?w=826&t=st=1688873610~exp=1688874210~hmac=bfacf4548dfc2b900630af1dd0ceb3924f592538cc63cac70262dda1fe25e297);
-  background-color: black;
   display: flex;
-  height: 320px;
- 
-
+  height: 275px;
+  width: 100%;
 
 }
-
 .playerOneContainer{
-  background-color: rgb(29, 148, 108);
   height: 100%;
-  width: 20%;
+  width: 25%;
   color: white;
-  padding-left: 8px;
+  height: 100%;
+  margin-top: 30px;
   margin-left: 10px;
-
 }
-
 .playerTwoContainer{
-  background-color: rgb(29, 148, 108);
+  margin-top: 30px;
   height: 100%;
   width: 20%;
-  padding-left: 10px;
+  padding-left: 2px;
   color: white;
   margin-right: 10px;
 
 }
-/* .startExitBt{
-  background-color: rgb(29, 148, 108);
+.startExitBt{
+  text-align: center;
+  padding-bottom: 1px;
+  font-size: 20px;
+  margin: 0px;
   display: flex;
-  margin-left: 10px;
-} */
+  margin-bottom: 5px;
+  
+}
 
 .card{
-  background-color: rgb(4, 124, 4);
-  /* position: fixed; */
-  border: 5px double rgb(145, 133, 133);
-  width: 50px;
-  height: 60px;
+  background-color: rgb(206, 165, 32);
+  border: 5px  black;
+  width: 60px;
+  height: 65px;
   border-radius: 10px;
   cursor: pointer;
   position: relative;
@@ -103,26 +100,21 @@ body{
 } */
 .active{
   color: black;
-  padding: 10px 10px;
-  border-radius: 30px;
-  background: yellow;
-  box-shadow: 0 0 30px rgba(81, 187, 230, 0.8);
+  border-radius: 10px;
+  background-color: rgb(119, 138, 192);
+  margin-left: 3px;
+  box-shadow: 0 0 30px rgba(245, 247, 239, 0.8);
+  height: 25px;
+  padding: 3px;
+  width: 99px;
 }
-.reload{
-  text-align: center;
-  padding-bottom: 10px;
-  font-size: 20px;
-  cursor: pointer;
-  background-color: rgb(29, 148, 108);
-  margin-left: 10px;
-  margin-right: 10px;
-}
+
 /* .reload:hover{
   transform: scale(1.2);
 } */
  .startBtn{
-  margin-left: 10%;
-  border: double gray;
+  margin-left: 30%;
+  border: solid black;
   background-color: green;
   color: white;
   border-radius: 10px;
@@ -130,12 +122,47 @@ body{
  } 
  .exitbtn{
   border-radius: 10px;
-  border: double gray;
+  border: solid black;
   background-color: rgb(197, 10, 10);
   color: white;
+  margin-left: 10px;
  }
 
+.score1{
+  background-color: rgb(119, 138, 192);
+  margin-top: 30px;
+  margin-right: 15px;
+  color: black;
+  color:white;
+  border-radius: 10px;
+  height: 25px;
+  padding: 3px;
+  width: 99px;
+ }
+ .score2{
+  width: 99px;
+  background-color: rgb(119, 138, 192);
+  margin-top: 30px;
+  color:white;
+  border-radius: 10px;
+  height: 25px;
+  padding: 3px;
 
+ }
+ .gameRules{
+  color: white;
+  text-align: center;
+  background-color:  rgb(14, 28, 43);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background: url(https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm309-aew-013_1_1.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=2724bd9481a065ee24e7e7eaaabf1c55);
+ }
+ p{
+  margin: 0px;
+ }
+ h4{
+  margin: 0px;
+ }
 
 
 
