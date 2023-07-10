@@ -1,5 +1,5 @@
 
-Memory-Game
+Memory Card Game
 
 A memory card game designed with HTML, CSS and  JavaScript. Currently the game can only be played on a desktop browser. Mobile phone versions will be designed shortly.
 
