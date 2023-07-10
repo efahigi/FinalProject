@@ -89,21 +89,22 @@
     // cards.sort(() => 0.5 - Math.random())
   
       const gridContainer= document.querySelector('.gridContainer')
+    // score
       const result1 = document.querySelector('#result1')
       const result2 = document.querySelector('#result2')
-      // score
+      //player
       const p1 = document.querySelector('#p1')
       const p2 = document.querySelector('#p2')
-      // console.log([p1, p2])
+      //game state
       let flippedCard = []
       let flippedCardId = []
       const cardsMatchedByPlayer1 = []
       const cardsMatchedByPlayer2 = []
       let player1 = true
       let player2 = false
-  
+  //to make reshiffle cards randamily
       shuffleCards()
-      function shuffleCards() { //to make reshiffle cards randamily
+      function shuffleCards() { 
         let currentIndex = cards.length,
           randomIndex,
           temporaryValue;
@@ -118,7 +119,7 @@
       }
   
       //create your Players board
-    function buildPlayerBaord() {
+    function buildGameBaord() {
       for (let i = 0; i < cards.length; i++) {
         const card = document.createElement('img') //creat the HTML element
         card.setAttribute('src', 'images/placeholder.png') //placeholder image is as reversed card
@@ -199,7 +200,7 @@
     }
     checkGameOver()
   }   
-  buildPlayerBaord()
+  buildGameBaord()
   function checkGameOver(){ // game is over if either player gets morethan 4 points frist
     if ((cardsMatchedByPlayer1.length > 4) || (cardsMatchedByPlayer2.length > 4)){
       let result;
