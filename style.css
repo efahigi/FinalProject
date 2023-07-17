@@ -1,5 +1,5 @@
-body{
-  background: rgb(177, 177, 174);
+ body{
+   background: rgb(177, 177, 174);
   margin: 19px;
   overflow: hidden;
   }
@@ -9,61 +9,61 @@ body{
     font-family: sans-serif;
     color: white;
     text-align: center;
-    /* background-color:rgb(29, 148, 108); */
     margin-left: 10px;
     margin-top: 10px;
     margin-right:10px;
-  }
-  .container{
+  }  
+   .container{ 
     height: 490px;
     background: url(https://img.freepik.com/free-vector/abstract-neon-lights-background-design_52683-44643.jpg?auto=format&fit=crop&w=315&h=220);
     justify-content: center;
     align-items: center;
     position: absolute;
     border-radius: 20px;
-    width: 530px;
+    width: 600px;
   }
-.gridContainer {
+#game-board{
   grid-template-columns: repeat(4,60px);
   grid-template-rows: repeat(4,60px);
-  gap: 0.4em;
+  gap: 0.8em;
   display: grid;
   flex-direction: column;
   padding: 2px;
-  border-radius: 20px; 
+  border-radius: 20px;
+  margin-left: 10%;
 }
 .gameBoardContainer{
   display: flex;
-  height: 275px;
-  width: 100%;
+  height: 290px;
+  width: 60%;
 }
 .playerOneContainer{
   height: 100%;
-  width: 25%;
+  width: 20%;
   color: white;
-  height: 100%;
-  margin-top: 30px;
+  margin-top: 50px;
   margin-left: 10px;
 }
 .playerTwoContainer{
-  margin-top: 30px;
+  margin-top: 50px;
   height: 100%;
   width: 20%;
-  padding-left: 7px;
+  padding-left: 1px;
   color: white;
   margin-right: 10px;
-}
+}  
 .startExitBt{
   text-align: center;
-  padding-bottom: 1px;
+  padding-bottom: 10px;
   font-size: 20px;
-  margin: 0px;
+  margin: 10px;
   display: flex;
   margin-bottom: 5px;
+ 
 }
-.card{
-  /* background-color: rgb(221, 169, 91); */
-  /* border: 5px  rgb(201, 150, 55); */
+img{ 
+  background-color: rgb(221, 169, 91); 
+  border: 5px  rgb(201, 150, 55); 
   width: 60px;
   height: 65px;
   border-radius: 10px;
@@ -71,7 +71,8 @@ body{
   position: relative;
   transform-style: preserve-3d;
   transition: all 0.5s ease-in-out;
-}
+ 
+} 
 .card .flippedCard{
   transform: rotateY('180deg');
 }
@@ -81,9 +82,9 @@ body{
   background-color: rgb(138, 245, 218);
   margin-left: 3px;
   box-shadow: 0 0 30px rgba(230, 240, 238, 0.8);
-  height: 25px;
+  height: 10px;
   padding: 3px;
-  width: 99px;
+  width: 75px;
 }
  .startBtn{
   margin-left: 35%;
@@ -103,7 +104,7 @@ body{
  .exitbtn:hover{
   transform: scale(1.2);
 }
-.score1{
+.scorePage1{
   background-color: rgb(154, 245, 177);
   border: solid rgb(129, 161, 128);
   margin-top: 30px;
@@ -112,10 +113,10 @@ body{
   border-radius: 10px;
   height: 25px;
   padding: 3px;
-  width: 99px;
+  width: 89px;
  }
- .score2{
-  width: 99px;
+ .scorePage2{
+  width: 84px;
   background-color: rgb(154, 245, 177);
   margin-top: 30px;
   color:black;
@@ -127,7 +128,7 @@ body{
  }
  .gameRules{
   background: url(https://img.freepik.com/free-vector/abstract-neon-lights-background-design_52683-44643.jpg?auto=format&fit=crop&w=315&h=220);
-  color: rgb(166, 216, 28);
+  color: rgb(201, 226, 130);
   text-align: center;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -137,9 +138,12 @@ body{
  }
  h4{
   margin: 0px;
- }
-
-
-
+ }  
+.container-fluid, #game-board{
+  padding: 2% 14%;
+}
+#zero, #one{
+  padding: 10px;
+}
 
 
