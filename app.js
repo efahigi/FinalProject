@@ -44,7 +44,7 @@ function changeTurn(active) {
 const startGame = function () {
   for (let i = 0; i < 16; i++) {
     document.getElementById('game-board').innerHTML +=
-      `<div class="col-3">
+      `<div class="card">
         <img src="images/placeholder.png" alt="" class="question" ID="${i}">
       </div>`;
   }
