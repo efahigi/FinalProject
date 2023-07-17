@@ -12,4 +12,6 @@ This game is not yet publishe so that any user who want to play this game can op
 
 CREDITS:
 Finally, I would like to thanks to my Instractor Jordan Wofford for his valuable knowledge transfer during past 6 weeks on training on Html,Css and JavaScript.
+
+
 ![image](https://github.com/efahigi/FinalProject/assets/77455218/899b3297-c3e2-42b7-afb6-57f24c521105)
