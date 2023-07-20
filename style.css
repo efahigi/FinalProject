@@ -1,5 +1,5 @@
  body{
-   background: rgb(177, 177, 174);
+  background: rgb(177, 177, 174);
   margin: 19px;
   overflow: hidden;
   }
@@ -97,7 +97,7 @@ img{
 }
  .exitbtn{
   border-radius: 10px;
-  background-color: rgb(109, 21, 21);
+  background-color: rgb(221, 9, 9);
   color: white;
   margin-left: 10px;
  }
