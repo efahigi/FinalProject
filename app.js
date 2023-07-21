@@ -3,9 +3,9 @@ let shuffledList, totNumClicks, activePlayer, cardTargets, pickOne, scores;
 let foundCards = 0;
 
 function shuffleDeck() {
-  const photoList = ["2Diamond", "3Spade", "4Heart", "5Clubs", "6Spade", "7Diamond", "8Heart", "9Clubs"];
+  const cardList = ["2Diamond", "3Spade", "4Heart", "5Clubs", "6Spade", "7Diamond", "8Heart", "9Clubs"];
   shuffledList = new Array(16);
-  const isPhotoPicked = [0, 0, 0, 0, 0, 0, 0, 0];
+  const isCardPicked = [0, 0, 0, 0, 0, 0, 0, 0];
   scores = [0, 0];
   //populate the shuffledList array
   for (let i = 0; i < 16; i++) {
@@ -13,15 +13,15 @@ function shuffleDeck() {
     let picked = Math.floor(Math.random() * 8);
 
     //check if this card has already been picked twice,
-    //if NOT, then assign that card to the element of the shuffledDeck array
-    //update the isPhotoPicked Array
-    while (isPhotoPicked[picked] >= 2) {
+    //if NOT, then assign that card to the element of the shuffledCard array
+    //update the isCardPicked Array
+    while (isCardPicked[picked] >= 2) {
       picked = Math.floor(Math.random() * 8);
     }
 
-    if (isPhotoPicked[picked] < 2) {
-      shuffledList[i] = photoList[picked];
-      isPhotoPicked[picked]++;
+    if (isCardPicked[picked] < 2) {
+      shuffledList[i] = cardList[picked];
+      isCardPicked[picked]++;
     }
   }
 
@@ -86,7 +86,7 @@ for (const cardTarget of cardTargets) {
                 window.location.reload();
               }
             } else {
-              if (confirm(`Draw!. Play Again??`)) {
+              if (confirm(`Draw!. Play Again?`)) {
                 window.location.reload();
               }
             }
