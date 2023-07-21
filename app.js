@@ -78,15 +78,15 @@ for (const cardTarget of cardTargets) {
 
           if (foundCards >= 8) {
             if (scores[0] > scores[1]) {
-              if (confirm(`Player 1 won by ${scores[0]}. Continue playing?`)) {
+              if (confirm(`Player 1 won by ${scores[0]}. Play Again?`)) {
                 window.location.reload();
               }
             } else if (scores[0] < scores[1]) {
-              if (confirm(`Player 2 won by ${scores[1]}. Continue playing?`)) {
+              if (confirm(`Player 2 won by ${scores[1]}. Play Again?`)) {
                 window.location.reload();
               }
             } else {
-              if (confirm(`Draw!. Continue playing?`)) {
+              if (confirm(`Draw!. Play Again??`)) {
                 window.location.reload();
               }
             }
