@@ -4,7 +4,8 @@ let foundCards = 0;
 
 function shuffleDeck() {
   const cardList = ["2Diamond", "3Spade", "4Heart", "5Clubs", "6Spade", "7Diamond", "8Heart", "9Clubs"];
-  shuffledList = new Array(16);
+ shuffledList = [...cardList, ...cardList]
+  // shuffledList = new Array(16);
   const isCardPicked = [0, 0, 0, 0, 0, 0, 0, 0];
   scores = [0, 0];
   //populate the shuffledList array
